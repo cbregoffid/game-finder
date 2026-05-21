@@ -34,7 +34,7 @@ def average_vectors(vectors):
         return None
     return np.mean(vectors, axis=0).tolist()
 
-def search(query_vector, top_k=5):
+def search(query_vector, top_k=10):
     results = index.query(vector=query_vector, top_k=top_k, include_metadata=True)
     return results.matches
 
