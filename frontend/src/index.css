@@ -6,6 +6,11 @@
   }
 }
 
+#root {
+  position: relative;
+  z-index: 10;
+}
+
 .animate-scroll {
   animation: scroll 60s linear infinite;
 }
