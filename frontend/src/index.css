@@ -6,6 +6,58 @@
   }
 }
 
+@keyframes flicker {
+  0% { opacity: 0; }
+  5% { opacity: 1; }
+  8% { opacity: 0; }
+  9% { opacity: 1; }
+  12% { opacity: 0; }
+  20% { opacity: 1; }
+  22% { opacity: 0.3; }
+  23% { opacity: 1; }
+  35% { opacity: 0; }
+  36% { opacity: 1; }
+  37% { opacity: 0; }
+  38% { opacity: 1; }
+  50% { opacity: 0.5; }
+  51% { opacity: 0; }
+  52% { opacity: 1; }
+  70% { opacity: 0.8; }
+  72% { opacity: 0.2; }
+  74% { opacity: 1; }
+  85% { opacity: 0.9; }
+  90% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.neon-flicker {
+  animation: flicker 2s forwards;
+}
+
+@keyframes flickerOut {
+  0% { opacity: 1; }
+  15% { opacity: 0; }
+  16% { opacity: 1; }
+  20% { opacity: 0.8; }
+  25% { opacity: 0; }
+  30% { opacity: 1; }
+  50% { opacity: 0.5; }
+  55% { opacity: 0; }
+  60% { opacity: 0.3; }
+  75% { opacity: 0; }
+  80% { opacity: 0.2; }
+  100% { opacity: 0; }
+}
+
+.neon-flicker-out {
+  animation: flickerOut 0.8s forwards;
+}
+
+@font-face {
+  font-family: 'Boxigen';
+  src: url('./src/assets/BOXIGEN.ttf') format('truetype');
+}
+
 #root {
   position: relative;
   z-index: 10;
