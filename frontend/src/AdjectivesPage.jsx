@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function AdjectivesPage() {
   const [input, setInput] = useState("")
@@ -6,9 +7,11 @@ function AdjectivesPage() {
   const [adjectives, setAdjectives] = useState([])
   const [flickering, setFlickering] = useState([false, false, false])
   const [flickeringOut, setFlickeringOut] = useState([false, false, false])
+  const navigate = useNavigate()
+  const [transitioning, setTransitioning] = useState(false)
 
   useEffect(() => {
-    if (input.length < 2){
+    if (input.length < 2) {
       setSuggestions([])
       return
     }
@@ -27,30 +30,34 @@ function AdjectivesPage() {
     fetchSuggestions()
   }, [input])
 
-const handleAddAdjective = (word) => {
-  if (adjectives.includes(word)) return
-  if (adjectives.length >= 3) return
-  const newIndex = adjectives.length
-  setAdjectives([...adjectives, word])
-  const newFlickering = [false, false, false]
-  newFlickering[newIndex] = true
-  setFlickering(newFlickering)
-  setTimeout(() => setFlickering([false, false, false]), 2000)
-  
-  setInput("")
-  setSuggestions([])
-}
+  const handleNext = () => {
+    setTransitioning(true)
+    setTimeout(() => navigate('/games'), 500)
+  }
+  const handleAddAdjective = (word) => {
+    if (adjectives.includes(word)) return
+    if (adjectives.length >= 3) return
+    const newIndex = adjectives.length
+    setAdjectives([...adjectives, word])
+    const newFlickering = [false, false, false]
+    newFlickering[newIndex] = true
+    setFlickering(newFlickering)
+    setTimeout(() => setFlickering([false, false, false]), 2000)
 
-const handleRemoveAdjective = (word) => {
-  const index = adjectives.indexOf(word)
-  const newFlickeringOut = [false, false, false]
-  newFlickeringOut[index] = true
-  setFlickeringOut(newFlickeringOut)
-  setTimeout(() => {
-    setAdjectives(adjectives.filter(a => a !== word))
-    setFlickeringOut([false, false, false])
-  }, 800)
-}
+    setInput("")
+    setSuggestions([])
+  }
+
+  const handleRemoveAdjective = (word) => {
+    const index = adjectives.indexOf(word)
+    const newFlickeringOut = [false, false, false]
+    newFlickeringOut[index] = true
+    setFlickeringOut(newFlickeringOut)
+    setTimeout(() => {
+      setAdjectives(adjectives.filter(a => a !== word))
+      setFlickeringOut([false, false, false])
+    }, 800)
+  }
 
   const neonColors = ['#00ffff', '#ff00ff', '#bf00ff', '#ff6600', '#00ff99']
   const neonTextColors = ['#ff00ff', '#00ffff', '#ff6600', '#00ff99', '#bf00ff']
@@ -72,7 +79,7 @@ const handleRemoveAdjective = (word) => {
           ))}
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '4vw', justifyContent: 'center', marginTop: '400px'}}>
+      <div style={{ display: 'flex', gap: '4vw', justifyContent: 'center', marginTop: '400px' }}>
         {[0, 1, 2].map((slot) => (
           <div key={slot} style={{
             color: neonTextColors[slot],
@@ -90,32 +97,36 @@ const handleRemoveAdjective = (word) => {
             fontFamily: 'Boxigen, sans-serif',
             position: 'relative',
           }}>
-          {adjectives[slot] ? (
-            <>
-            <span className={flickeringOut[slot] ? 'neon-flicker-out' : flickering[slot] ? 'neon-flicker' : ''}>
-              {adjectives[slot]}
-              <button 
-                onClick={() => handleRemoveAdjective(adjectives[slot])}
-                style={{
-                  position: 'absolute',
-                  top: '0.5vw',
-                  right: '1.2vw',
-                  background: 'none', 
-                  border: 'none', 
-                  color: 'inherit', 
-                  cursor: 'pointer', 
-                  fontSize: '2vw',
-                }}
-              >✕</button>
-            </span>
-            </>
-          ) : ''}
+            {adjectives[slot] ? (
+              <>
+                <span className={flickeringOut[slot] ? 'neon-flicker-out' : flickering[slot] ? 'neon-flicker' : ''}>
+                  {adjectives[slot]}
+                  <button
+                    onClick={() => handleRemoveAdjective(adjectives[slot])}
+                    style={{
+                      position: 'absolute',
+                      top: '0.5vw',
+                      right: '1.2vw',
+                      background: 'none',
+                      border: 'none',
+                      color: 'inherit',
+                      cursor: 'pointer',
+                      fontSize: '2vw',
+                    }}
+                  >✕</button>
+                </span>
+              </>
+            ) : ''}
           </div>
         ))}
       </div>
 
+      <div>
+        <button onClick={handleNext}>Next</button>
       </div>
-    )
+
+    </div>
+  )
 }
 
 export default AdjectivesPage
