@@ -31,7 +31,7 @@ def fetch_games(access_token, offset=0):
         "Client-ID": CLIENT_ID,
         "Authorization": f"Bearer {access_token}"
     }
-    body = f'fields name, summary, genres.name, themes.name; where summary != null & rating >= 75 & rating_count > 50; limit 100; offset {offset}; sort rating_count desc;'
+    body = f'fields name, summary, genres.name, themes.name, cover.url; where summary != null & rating >= 75 & rating_count > 50; limit 100; offset {offset}; sort rating_count desc;'
     response = requests.post(url, headers=headers, data=body)
     return response.json()
 
@@ -69,7 +69,8 @@ for batch in range(5):
                 "name": game.get("name", ""),
                 "summary": game.get("summary", ""),
                 "genres": ", ".join([g["name"] for g in game.get("genres", [])]),
-                "themes": ", ".join([t["name"] for t in game.get("themes", [])])
+                "themes": ", ".join([t["name"] for t in game.get("themes", [])]),
+                "cover": ("https:" + game["cover"]["url"].replace("t_thumb", "t_1080p")) if game.get("cover") else None
             }
         })
 

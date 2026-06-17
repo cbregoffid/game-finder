@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function AdjectivesPage() {
+function AdjectivesPage({ adjectives, setAdjectives }) {
   const [input, setInput] = useState("")
   const [suggestions, setSuggestions] = useState([])
-  const [adjectives, setAdjectives] = useState([])
   const [flickering, setFlickering] = useState([false, false, false])
   const [flickeringOut, setFlickeringOut] = useState([false, false, false])
   const navigate = useNavigate()

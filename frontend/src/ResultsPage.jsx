@@ -1,4 +1,4 @@
-function ResultsPage() {
+function ResultsPage({ adjectives, games }) {
   return (
     <div>
       <h1>Results Page</h1>

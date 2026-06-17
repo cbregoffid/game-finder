@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { useState } from 'react'
 import cityBg from './assets/cityBg.png'
 import cityBgNight from './assets/cityBg_night.png'
 import LandingPage from './LandingPage'
@@ -8,7 +9,7 @@ import ResultsPage from './ResultsPage'
 
 function Background() {
   const location = useLocation()
-  const isNight = location.pathname !== '/'
+  const isNight = location.pathname == '/adjectives'
 
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden' }}>
@@ -27,6 +28,9 @@ function Background() {
 }
 
 function App() {
+  const [adjectives, setAdjectives] = useState([])
+  const [games, setGames] = useState([null, null, null])
+
   return (
     <BrowserRouter>
       <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
@@ -34,9 +38,9 @@ function App() {
         <div style={{ position: 'relative', zIndex: 1 }}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/adjectives" element={<AdjectivesPage />} />
-            <Route path="/games" element={<GamesPage />} />
-            <Route path="/results" element={<ResultsPage />} />
+            <Route path="/adjectives" element={<AdjectivesPage adjectives={adjectives} setAdjectives={setAdjectives} />} />
+            <Route path="/games" element={<GamesPage games={games} setGames={setGames} />} />
+            <Route path="/results" element={<ResultsPage adjectives={adjectives} games={games} />} />
           </Routes>
         </div>
       </div>
