@@ -48,6 +48,10 @@ function App() {
   new Image().src = cityBgNight
   new Image().src = cityBgDay
 
+  useEffect(() => {
+    fetch('https://game-finder-api-t4iu.onrender.com/search-games?query=a')
+  }, [])
+
   return (
     <BrowserRouter>
       <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>

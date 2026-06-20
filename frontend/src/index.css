@@ -312,6 +312,23 @@
   animation: l6 1s infinite alternate;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
 @keyframes l6 {
   0%   { background-position: 0 50%, 50% 50%, 100% 50% }
   20%  { background-position: 0 0,   50% 50%, 100% 50% }
