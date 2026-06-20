@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import cityBg from './assets/cityBg.png'
 import cityBgNight from './assets/cityBg_night.png'
 import cityBgMorning from './assets/cityBg_morning.png'
