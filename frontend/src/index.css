@@ -152,7 +152,7 @@
 
 @font-face {
   font-family: 'Boxigen';
-  src: url('./src/assets/BOXIGEN.ttf') format('truetype');
+  src: url('./assets/BOXIGEN.ttf') format('truetype');
 }
 
 #root {
