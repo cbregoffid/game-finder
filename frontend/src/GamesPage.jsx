@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function GamesPage({ games, setGames }) {
   const [input, setInput] = useState("")
   const [suggestions, setSuggestions] = useState([])
   const [activeSlot, setActiveSlot] = useState(null)
   const [hoveredSlot, setHoveredSlot] = useState(null)
+  const [transitioning, setTransitioning] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (input.length < 2) {
@@ -38,11 +41,21 @@ function GamesPage({ games, setGames }) {
     setSuggestions([])
   }
 
+  const handleNext = () => {
+    setTransitioning(true)
+    setTimeout(() => navigate('/results'), 500)
+  }
+
+  const handleBack = () => {
+    navigate('/adjectives')
+  }
+
   return (
     <div>
       {activeSlot !== null ? (
         <div style={{ position: 'relative', display: 'inline-block' }}>
           <input
+            className="pixel-input"
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -107,6 +120,10 @@ function GamesPage({ games, setGames }) {
             )}
           </div>
         ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 32px', position: 'fixed', bottom: 0, left: 0, right: 0 }}>
+        <button onClick={handleBack} className="pixel-btn">Back</button>
+        <button className="pixel-btn" onClick={handleNext}>Next</button>
       </div>
     </div>
   )

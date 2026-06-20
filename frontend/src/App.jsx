@@ -40,7 +40,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/adjectives" element={<AdjectivesPage adjectives={adjectives} setAdjectives={setAdjectives} />} />
             <Route path="/games" element={<GamesPage games={games} setGames={setGames} />} />
-            <Route path="/results" element={<ResultsPage adjectives={adjectives} games={games} />} />
+            <Route path="/results" element={<ResultsPage adjectives={adjectives} games={games} setAdjectives={setAdjectives} setGames={setGames} />} />
           </Routes>
         </div>
       </div>

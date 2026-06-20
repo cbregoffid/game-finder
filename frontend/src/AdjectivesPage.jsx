@@ -33,6 +33,10 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
     setTransitioning(true)
     setTimeout(() => navigate('/games'), 500)
   }
+
+  const handleBack = () => {
+    navigate('/')
+  }
   const handleAddAdjective = (word) => {
     if (adjectives.includes(word)) return
     if (adjectives.length >= 3) return
@@ -63,14 +67,15 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
 
   return (
     <div>
-      <div style={{ position: 'relative', display: 'inline-block' }}>
+      <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
         <input
+          className="pixel-input"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          style={{ background: 'white', color: 'black', padding: '8px' }}
+          placeholder="Enter an adjective"
         />
-        <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 10, background: 'white', color: 'black', width: '100%' }}>
+        <div style={{ position: 'absolute', top: '100%', zIndex: 10, background: 'white', color: 'black', width: '300px' }}>
           {suggestions.map((suggestion) => (
             <div key={suggestion.word} onClick={() => handleAddAdjective(suggestion.word)}>
               {suggestion.word}
@@ -78,7 +83,7 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
           ))}
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '4vw', justifyContent: 'center', marginTop: '400px' }}>
+      <div style={{ display: 'flex', gap: '4vw', justifyContent: 'center', position: 'fixed', bottom: '280px', left: 0, right: 0 }}>
         {[0, 1, 2].map((slot) => (
           <div key={slot} style={{
             color: neonTextColors[slot],
@@ -120,8 +125,9 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
         ))}
       </div>
 
-      <div>
-        <button onClick={handleNext}>Next</button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 32px', position: 'fixed', bottom: 0, left: 0, right: 0 }}>
+        <button onClick={handleBack} className="pixel-btn-night">Back</button>
+        <button className="pixel-btn-night" onClick={handleNext}>Next</button>
       </div>
 
     </div>
