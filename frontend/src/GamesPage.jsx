@@ -7,6 +7,7 @@ function GamesPage({ games, setGames }) {
   const [activeSlot, setActiveSlot] = useState(null)
   const [hoveredSlot, setHoveredSlot] = useState(null)
   const [transitioning, setTransitioning] = useState(false)
+  const [error, setError] = useState("")
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -42,8 +43,14 @@ function GamesPage({ games, setGames }) {
   }
 
   const handleNext = () => {
+    if (games.every(g => g === null)) {
+      setError("Please add at least one game!")
+      setTimeout(() => setError(""), 3000)
+      return
+    }
+    setError("")
     setTransitioning(true)
-    setTimeout(() => navigate('/results'), 500)
+    navigate('/results')
   }
 
   const handleBack = () => {
@@ -52,27 +59,42 @@ function GamesPage({ games, setGames }) {
 
   return (
     <div>
-      {activeSlot !== null ? (
-        <div style={{ position: 'relative', display: 'inline-block' }}>
-          <input
-            className="pixel-input"
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            style={{ background: 'white', color: 'black', padding: '8px' }}
-          />
-          {suggestions.length > 0 && (
-            <div style={{ position: 'absolute', top: '100%', left: 0, zIndex: 10, background: 'white', color: 'black', width: '100%' }}>
-              {suggestions.map((suggestion) => (
-                <div key={suggestion.name} onClick={() => handleAddGame(suggestion)}>
-                  <img src={suggestion.cover} style={{ width: '40px', height: '40px', objectFit: 'cover' }} />
-                  <span>{suggestion.name}</span>
-                </div>
-              ))}
-            </div>
-          )}
+      {activeSlot !== null && (
+        <div
+          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+          onClick={() => { setActiveSlot(null); setInput(""); setSuggestions([]) }}
+        >
+          <div
+            style={{ position: 'relative', marginBottom: '300px' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <input
+              className="pixel-input"
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Search for a game..."
+              autoFocus
+            />
+            {suggestions.length > 0 && (
+              <div className="pixel-dropdown" style={{ position: 'absolute', zIndex: 10, width: '400px' }}>
+                {suggestions.map((suggestion) => (
+                  <div className="pixel-dropdown-item" key={suggestion.name} onClick={() => handleAddGame(suggestion)}>
+                    <img src={suggestion.cover} style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
+                    <span>{suggestion.name}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      ) : null}
+      )}
+
+      {error && (
+        <p className="error-fade" style={{ position: 'fixed', top: '150px', width: '100%', color: 'red', textAlign: 'center', fontFamily: "'Press Start 2P', cursive", fontSize: '10px', zIndex: 50 }}>
+          {error}
+        </p>
+      )}
 
       <div style={{ display: 'flex', gap: '4vw', justifyContent: 'center', marginTop: '200px' }}>
         {[0, 1, 2].map((slot) => (
@@ -122,8 +144,8 @@ function GamesPage({ games, setGames }) {
         ))}
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 32px', position: 'fixed', bottom: 0, left: 0, right: 0 }}>
-        <button onClick={handleBack} className="pixel-btn">Back</button>
-        <button className="pixel-btn" onClick={handleNext}>Next</button>
+        <button onClick={handleBack} className="pixel-btn-morning">Back</button>
+        <button className="pixel-btn-morning" onClick={handleNext}>Next</button>
       </div>
     </div>
   )

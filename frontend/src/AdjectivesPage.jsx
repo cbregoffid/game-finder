@@ -8,6 +8,7 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
   const [flickeringOut, setFlickeringOut] = useState([false, false, false])
   const navigate = useNavigate()
   const [transitioning, setTransitioning] = useState(false)
+  const [error, setError] = useState("")
 
   useEffect(() => {
     if (input.length < 2) {
@@ -18,11 +19,16 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
     const fetchSuggestions = async () => {
       const response = await fetch(`https://api.datamuse.com/words?sp=${input}*&max=8&md=p`)
       const data = await response.json()
-      const filtered = data.filter(w => w.tags && w.tags.includes('adj') && !w.word.includes(' ') && !w.word.includes(',')).sort((a, b) => {
-        if (a.word === input) return -1
-        if (b.word === input) return 1
-        return 0
-      })
+      const filtered = data.filter(w =>
+        w.tags &&
+        w.tags.includes('adj') &&
+        !w.word.includes(' ') &&
+        !w.word.includes(','))
+        .sort((a, b) => {
+          if (a.word === input) return -1
+          if (b.word === input) return 1
+          return 0
+        })
       setSuggestions(filtered)
     }
 
@@ -30,8 +36,14 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
   }, [input])
 
   const handleNext = () => {
+    if (adjectives.length === 0) {
+      setError("Please add at least one adjective")
+      setTimeout(() => setError(""), 3000)
+      return
+    }
+    setError("")
     setTransitioning(true)
-    setTimeout(() => navigate('/games'), 500)
+    navigate('/games')
   }
 
   const handleBack = () => {
@@ -66,23 +78,30 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
   const neonTextColors = ['#ff00ff', '#00ffff', '#ff6600', '#00ff99', '#bf00ff']
 
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
+      {error && (
+        <p className="error-fade" style={{ position: 'absolute', top: '-20px', width: '100%', color: 'red', textAlign: 'center', fontFamily: "'Press Start 2P', cursive", fontSize: '10px' }}>
+          {error}
+        </p>
+      )}
+
       <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
         <input
           className="pixel-input"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter an adjective"
+          placeholder="Enter an adjective..."
         />
-        <div style={{ position: 'absolute', top: '100%', zIndex: 10, background: 'white', color: 'black', width: '300px' }}>
+        <div className="pixel-dropdown" style={{ position: 'absolute', top: '100%', zIndex: 10, width: '400px' }}>
           {suggestions.map((suggestion) => (
-            <div key={suggestion.word} onClick={() => handleAddAdjective(suggestion.word)}>
+            <div key={suggestion.word} className="pixel-dropdown-item" onClick={() => handleAddAdjective(suggestion.word)}>
               {suggestion.word}
             </div>
           ))}
         </div>
       </div>
+
       <div style={{ display: 'flex', gap: '4vw', justifyContent: 'center', position: 'fixed', bottom: '280px', left: 0, right: 0 }}>
         {[0, 1, 2].map((slot) => (
           <div key={slot} style={{

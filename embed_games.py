@@ -52,7 +52,7 @@ def embed_text(text):
 token = get_access_token()
 print("Token acquired:", token[:10])
 
-for batch in range(5):
+for batch in range(10):
     offset = batch * 100
     print(f"Fetching games {offset} to {offset + 100}...")
     games = fetch_games(token, offset)

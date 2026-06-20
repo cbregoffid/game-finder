@@ -39,7 +39,9 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames }) {
     <div>
 
       {loading ? (
-        <p>Loading...</p>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <div className="loader"></div>
+        </div>
       ) : (
         <div>
           {results.map((result, index) => (
@@ -60,10 +62,10 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames }) {
           ))}
 
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px', maxWidth: '600px', margin: '0 auto' }}>
-            <button onClick={handleBack} className="pixel-btn">Back</button>
-            <button onClick={handleReset} className="pixel-btn">Start Over</button>
+            <button onClick={handleBack} className="pixel-btn-day">Back</button>
+            <button onClick={handleReset} className="pixel-btn-day">Start Over</button>
           </div>
-          
+
         </div>
       )}
     </div>

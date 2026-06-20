@@ -11,7 +11,7 @@ function LandingPage() {
 
   const handleStart = () => {
     setTransitioning(true)
-    setTimeout(() => navigate('/adjectives'), 500)
+    setTimeout(() => navigate('/adjectives'), 300)
   }
 
   return (
