@@ -19,7 +19,7 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames }) {
   useEffect(() => {
     const fetchResults = async () => {
       setLoading(true)
-      const response = await fetch('http://localhost:8000/search', {
+      const response = await fetch('https://game-finder-api-t4iu.onrender.com/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -19,7 +19,7 @@ function GamesPage({ games, setGames }) {
     let cancelled = false
 
     const fetchSuggestions = async () => {
-      const response = await fetch(`http://localhost:8000/search-games?query=${input}`)
+      const response = await fetch(`https://game-finder-api-t4iu.onrender.com/search-games?query=${input}`)
       const data = await response.json()
       if (!cancelled) {
         setSuggestions(data.results)
