@@ -6,7 +6,6 @@ function GamesPage({ games, setGames }) {
   const [suggestions, setSuggestions] = useState([])
   const [activeSlot, setActiveSlot] = useState(null)
   const [hoveredSlot, setHoveredSlot] = useState(null)
-  const [transitioning, setTransitioning] = useState(false)
   const [error, setError] = useState("")
   const navigate = useNavigate()
 
@@ -49,7 +48,6 @@ function GamesPage({ games, setGames }) {
       return
     }
     setError("")
-    setTransitioning(true)
     navigate('/results')
   }
 

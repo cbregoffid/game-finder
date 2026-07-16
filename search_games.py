@@ -25,8 +25,7 @@ def get_game_vector(game_name):
         input=game_name,
         model="text-embedding-3-small"
     )
-    results = index.query(vector = response.data[0].embedding, top_k=1, filter ={"name": game_name}, include_metadata=True, include_values=True)
-
+    results = index.query(vector=response.data[0].embedding, top_k=1, filter={"name": game_name}, include_metadata=True, include_values=True)
     return results.matches[0].values
 
 def average_vectors(vectors):
@@ -37,23 +36,3 @@ def average_vectors(vectors):
 def search(query_vector, top_k=10):
     results = index.query(vector=query_vector, top_k=top_k, include_metadata=True)
     return results.matches
-
-def main():
-    adjectives = input("Enter multiple adjectives: ").split(",")
-    game_names = input("Enter multiple game names: ").split(",")
-    all_vectors = []
-    adjective_vector = embed_text(", ".join(adjectives))
-    all_vectors.append(adjective_vector)
-
-    for game in game_names:
-        game_vector = get_game_vector(game.strip())
-        if game_vector:
-            all_vectors.append(game_vector)
-
-    query_vector = average_vectors(all_vectors)
-    results = search(query_vector)
-    for result in results:
-        print(f"Name: {result.metadata['name']}, Summary: {result.metadata['summary']}, Genres: {result.metadata['genres']}, Themes: {result.metadata['themes']}")
-
-if __name__ == "__main__":
-    main()

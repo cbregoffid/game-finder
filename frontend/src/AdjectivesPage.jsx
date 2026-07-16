@@ -7,7 +7,6 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
   const [flickering, setFlickering] = useState([false, false, false])
   const [flickeringOut, setFlickeringOut] = useState([false, false, false])
   const navigate = useNavigate()
-  const [transitioning, setTransitioning] = useState(false)
   const [error, setError] = useState("")
 
   useEffect(() => {
@@ -42,7 +41,6 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
       return
     }
     setError("")
-    setTransitioning(true)
     navigate('/games')
   }
 

@@ -11,7 +11,6 @@ import ResultsPage from './ResultsPage'
 
 function Background() {
   const location = useLocation()
-  const isEvening = location.pathname == '/'
   const isNight = location.pathname == '/adjectives'
   const isMorning = location.pathname == '/games'
   const isDay = location.pathname == '/results'
