@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function ResultsPage({ adjectives, games, setAdjectives, setGames }) {
+function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms }) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -19,12 +19,13 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames }) {
   useEffect(() => {
     const fetchResults = async () => {
       setLoading(true)
-      const response = await fetch('https://game-finder-api-t4iu.onrender.com/search', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/search`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           adjectives: adjectives,
-          game_names: games.filter(game => game !== null).map(game => game.name)
+          game_names: games.filter(game => game !== null).map(game => game.name),
+          platforms: platforms
         })
       })
       const data = await response.json()

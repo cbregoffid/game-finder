@@ -33,6 +33,6 @@ def average_vectors(vectors):
         return None
     return np.mean(vectors, axis=0).tolist()
 
-def search(query_vector, top_k=10):
-    results = index.query(vector=query_vector, top_k=top_k, include_metadata=True)
+def search(query_vector, top_k=10, platforms=None):
+    results = index.query(vector=query_vector, top_k=top_k, include_metadata=True, filter={"platforms": {"$in": platforms}} if platforms else None)
     return results.matches

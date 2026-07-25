@@ -14,6 +14,10 @@ function LandingPage() {
     setTimeout(() => navigate('/adjectives'), 300)
   }
 
+  const handleSettings = () => {
+    navigate('/settings')
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center pt-24"
       style={{
@@ -40,7 +44,7 @@ function LandingPage() {
         <button className="pixel-btn">
           About
         </button>
-        <button className="pixel-btn">
+        <button className="pixel-btn" onClick={handleSettings}>
           Settings
         </button>
       </div>

@@ -18,7 +18,7 @@ function GamesPage({ games, setGames }) {
     let cancelled = false
 
     const fetchSuggestions = async () => {
-      const response = await fetch(`https://game-finder-api-t4iu.onrender.com/search-games?query=${input}`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/search-games?query=${input}`)
       const data = await response.json()
       if (!cancelled) {
         setSuggestions(data.results)

@@ -15,6 +15,7 @@ index = pc.Index("game-finder")
 class SearchRequest(BaseModel):
     adjectives: list[str]
     game_names: list[str]
+    platforms: list[str] = []
 
 app = FastAPI()
 
@@ -41,7 +42,7 @@ async def search(request: SearchRequest):
             all_vectors.append(game_vector)
 
     query_vector = average_vectors(all_vectors)
-    results = search_games(query_vector)
+    results = search_games(query_vector, platforms=request.platforms)
     
     games = []
     for result in results:

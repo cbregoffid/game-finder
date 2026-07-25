@@ -8,6 +8,7 @@ import LandingPage from './LandingPage'
 import AdjectivesPage from './AdjectivesPage'
 import GamesPage from './GamesPage'
 import ResultsPage from './ResultsPage'
+import SettingsPage from './SettingsPage'
 
 function Background() {
   const location = useLocation()
@@ -42,13 +43,14 @@ function Background() {
 function App() {
   const [adjectives, setAdjectives] = useState([])
   const [games, setGames] = useState([null, null, null])
+  const [platforms, setPlatforms] = useState([])
 
   new Image().src = cityBgMorning
   new Image().src = cityBgNight
   new Image().src = cityBgDay
 
   useEffect(() => {
-    fetch('https://game-finder-api-t4iu.onrender.com/search-games?query=a')
+    fetch(`${import.meta.env.VITE_API_URL}/search-games?query=a`)
   }, [])
 
   return (
@@ -58,9 +60,10 @@ function App() {
         <div style={{ position: 'relative', zIndex: 1 }}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/settings" element={<SettingsPage platforms={platforms} setPlatforms={setPlatforms} />} />
             <Route path="/adjectives" element={<AdjectivesPage adjectives={adjectives} setAdjectives={setAdjectives} />} />
             <Route path="/games" element={<GamesPage games={games} setGames={setGames} />} />
-            <Route path="/results" element={<ResultsPage adjectives={adjectives} games={games} setAdjectives={setAdjectives} setGames={setGames} />} />
+            <Route path="/results" element={<ResultsPage adjectives={adjectives} games={games} setAdjectives={setAdjectives} setGames={setGames} platforms={platforms} />} />
           </Routes>
         </div>
       </div>
