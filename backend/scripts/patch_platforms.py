@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 from pinecone import Pinecone
+import time
 
 load_dotenv()
 
@@ -20,26 +21,29 @@ PLATFORM_GROUPS = {
     "DOS": "PC",
 
     # PlayStation
-    "PlayStation": "PlayStation",
-    "PlayStation 2": "PlayStation",
-    "PlayStation 3": "PlayStation",
-    "PlayStation 4": "PlayStation",
-    "PlayStation 5": "PlayStation",
-    "PlayStation Portable": "PlayStation",
-    "PlayStation Vita": "PlayStation",
-    "PlayStation VR": "PlayStation",
-    "PlayStation VR2": "PlayStation",
+    "PlayStation 5": "PlayStation 5",
+
+    "PlayStation": "PlayStation (Retro)",
+    "PlayStation 2": "PlayStation (Retro)",
+    "PlayStation 3": "PlayStation (Retro)",
+    "PlayStation 4": "PlayStation (Retro)",
+    "PlayStation Portable": "PlayStation (Retro)",
+    "PlayStation Vita": "PlayStation (Retro)",
+    "PlayStation VR": "PlayStation (Retro)",
+    "PlayStation VR2": "PlayStation (Retro)",
 
     # Xbox
-    "Xbox": "Xbox",
-    "Xbox 360": "Xbox",
-    "Xbox One": "Xbox",
-    "Xbox Series X|S": "Xbox",
+    "Xbox Series X|S": "Xbox Series X|S",
 
-    # Nintendo - Switch + Retro Consoles separate
+    "Xbox": "Xbox (Retro)",
+    "Xbox 360": "Xbox (Retro)",
+    "Xbox One": "Xbox (Retro)",
+
+    # Nintendo
+    "Nintendo Switch 2": "Nintendo Switch 2",
+    
     "Nintendo Switch": "Nintendo Switch",
-    "Nintendo Switch 2": "Nintendo Switch",
-
+    
     "Nintendo 64": "Nintendo (Retro)",
     "Wii": "Nintendo (Retro)",
     "Wii U": "Nintendo (Retro)",
@@ -85,7 +89,7 @@ def fetch_games(access_token, offset=0):
         "Client-ID": CLIENT_ID,
         "Authorization": f"Bearer {access_token}"
     }
-    body = f'fields name, platforms.name; where summary != null & rating >= 70 & rating_count > 20; limit 100; offset {offset}; sort rating_count desc;'
+    body = f'fields name, platforms.name, release_dates.platform.name, release_dates.date; where summary != null & rating >= 70 & rating_count > 20; limit 100; offset {offset}; sort rating_count desc;'
     response = requests.post(url, headers=headers, data=body)
     return response.json()
 
@@ -101,7 +105,18 @@ def group_platforms(raw_platform_names):
 
     return grouped
 
+def get_released_platforms(game):
+    now = time.time()
+    released = []
+    for entry in game.get("release_dates", []):
+        is_released = False if entry.get("date") is None else entry.get("date") < now
+        if is_released:
+            released.append(entry["platform"]["name"])
+            
+    return released
+            
 token = get_access_token()
+
 
 for batch in range(50):
     offset = batch * 100
@@ -109,8 +124,7 @@ for batch in range(50):
     games = fetch_games(token, offset)
 
     for game in games:
-        raw_names = [p["name"] for p in game.get("platforms", [])]
-        grouped = group_platforms(raw_names)
+        grouped = group_platforms(get_released_platforms(game))
         index.update(id=str(game["id"]), set_metadata={"platforms": grouped}) 
         
     print(f"Updated {len(games)} games.")

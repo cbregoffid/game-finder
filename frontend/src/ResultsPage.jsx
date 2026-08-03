@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms }) {
+function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, setPlatforms }) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -9,6 +9,7 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms }) 
   const handleReset = () => {
     setAdjectives([])
     setGames([null, null, null])
+    setPlatforms([])
     navigate('/')
   }
 

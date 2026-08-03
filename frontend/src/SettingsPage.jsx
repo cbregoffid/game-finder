@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-const CATEGORIES = ["PC", "PlayStation", "Xbox", "Nintendo Switch", "Nintendo (Retro)", "iOS", "Android"]
+const CATEGORIES = ["PC", "PlayStation 5", "PlayStation (Retro)", "Xbox Series X|S", "Xbox (Retro)", "Nintendo Switch 2", "Nintendo Switch", "Nintendo (Retro)", "iOS", "Android"]
 
 function SettingsPage({ platforms, setPlatforms }) {
     const navigate = useNavigate()

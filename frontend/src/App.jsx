@@ -63,7 +63,7 @@ function App() {
             <Route path="/settings" element={<SettingsPage platforms={platforms} setPlatforms={setPlatforms} />} />
             <Route path="/adjectives" element={<AdjectivesPage adjectives={adjectives} setAdjectives={setAdjectives} />} />
             <Route path="/games" element={<GamesPage games={games} setGames={setGames} />} />
-            <Route path="/results" element={<ResultsPage adjectives={adjectives} games={games} setAdjectives={setAdjectives} setGames={setGames} platforms={platforms} />} />
+            <Route path="/results" element={<ResultsPage adjectives={adjectives} games={games} setAdjectives={setAdjectives} setGames={setGames} platforms={platforms} setPlatforms={setPlatforms} />} />
           </Routes>
         </div>
       </div>
