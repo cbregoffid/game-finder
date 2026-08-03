@@ -89,7 +89,7 @@ def fetch_games(access_token, offset=0):
         "Client-ID": CLIENT_ID,
         "Authorization": f"Bearer {access_token}"
     }
-    body = f'fields name, platforms.name, release_dates.platform.name, release_dates.date; where summary != null & rating >= 70 & rating_count > 20; limit 100; offset {offset}; sort rating_count desc;'
+    body = f'fields name, platforms.name, release_dates.platform.name, release_dates.date, franchises.id; where summary != null & rating >= 70 & rating_count > 20; limit 100; offset {offset}; sort rating_count desc;'
     response = requests.post(url, headers=headers, data=body)
     return response.json()
 
@@ -114,6 +114,14 @@ def get_released_platforms(game):
             released.append(entry["platform"]["name"])
             
     return released
+
+def get_franchises_ids(game):
+    franchises = []
+    for franchise in game.get("franchises", []):
+        if str(franchise["id"]) not in franchises:
+            franchises.append(str(franchise["id"]))
+        
+    return franchises
             
 token = get_access_token()
 
@@ -125,7 +133,8 @@ for batch in range(50):
 
     for game in games:
         grouped = group_platforms(get_released_platforms(game))
-        index.update(id=str(game["id"]), set_metadata={"platforms": grouped}) 
+        franchise_ids = get_franchises_ids(game)
+        index.update(id=str(game["id"]), set_metadata={"platforms": grouped, "franchise_ids": franchise_ids}) 
         
     print(f"Updated {len(games)} games.")
 

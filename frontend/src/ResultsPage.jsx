@@ -7,7 +7,7 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, se
   const navigate = useNavigate()
 
   const handleReset = () => {
-    setAdjectives([])
+    setAdjectives([null, null, null])
     setGames([null, null, null])
     setPlatforms([])
     navigate('/')
@@ -24,7 +24,7 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, se
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          adjectives: adjectives,
+          adjectives: adjectives.filter(a => a !== null),
           game_names: games.filter(game => game !== null).map(game => game.name),
           platforms: platforms
         })

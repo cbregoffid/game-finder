@@ -34,8 +34,19 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
     fetchSuggestions()
   }, [input])
 
+  const getFontSize = (word) => {
+    if (word.length <= 10) return '4vw'
+
+    const size = 40 / word.length
+
+    if (size >= 1)
+      return `${size}vw`
+    else
+      return '1vw'
+  }
+
   const handleNext = () => {
-    if (adjectives.length === 0) {
+    if (adjectives.every(a => a === null)) {
       setError("Please add at least one adjective")
       setTimeout(() => setError(""), 3000)
       return
@@ -47,13 +58,16 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
   const handleBack = () => {
     navigate('/')
   }
+
   const handleAddAdjective = (word) => {
     if (adjectives.includes(word)) return
-    if (adjectives.length >= 3) return
-    const newIndex = adjectives.length
-    setAdjectives([...adjectives, word])
+    const emptySlot = adjectives.indexOf(null)
+    if (emptySlot === -1) return
+    const updated = [...adjectives]
+    updated[emptySlot] = word
+    setAdjectives(updated)
     const newFlickering = [false, false, false]
-    newFlickering[newIndex] = true
+    newFlickering[emptySlot] = true
     setFlickering(newFlickering)
     setTimeout(() => setFlickering([false, false, false]), 2000)
 
@@ -67,7 +81,9 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
     newFlickeringOut[index] = true
     setFlickeringOut(newFlickeringOut)
     setTimeout(() => {
-      setAdjectives(adjectives.filter(a => a !== word))
+      const updated = [...adjectives]
+      updated[index] = null
+      setAdjectives(updated)
       setFlickeringOut([false, false, false])
     }, 800)
   }
@@ -114,7 +130,7 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '4vw',
+            fontSize: adjectives[slot] ? getFontSize(adjectives[slot]) : '4vw',
             fontFamily: 'Boxigen, sans-serif',
             position: 'relative',
           }}>

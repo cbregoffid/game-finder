@@ -41,7 +41,7 @@ function Background() {
 }
 
 function App() {
-  const [adjectives, setAdjectives] = useState([])
+  const [adjectives, setAdjectives] = useState([null, null, null])
   const [games, setGames] = useState([null, null, null])
   const [platforms, setPlatforms] = useState([])
 
