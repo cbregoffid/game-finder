@@ -29,15 +29,11 @@ function LandingPage() {
       }}
     >
       <h1 
-        className="text-8xl font-bold text-white mb-20"
-        style={{ 
-          fontFamily: "'Uncial Antiqua', cursive",
-          textShadow: '1px 1px 4px #8B3A2A'
-        }}
+        className="landing-title"
       >
         GAME FINDER
       </h1>
-      <div className="flex gap-8">
+      <div className="flex gap-8" style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
         <button className="pixel-btn" onClick={handleStart}>
           Start
         </button>

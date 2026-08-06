@@ -18,20 +18,12 @@ function SettingsPage({ platforms, setPlatforms }) {
     }
 
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '120px' }}>
-            <h1
-                style={{
-                    fontFamily: "'Uncial Antiqua', cursive",
-                    color: 'white',
-                    fontSize: '48px',
-                    textShadow: '1px 1px 4px #8B3A2A',
-                    marginBottom: '48px'
-                }}
-            >
+        <div className="settings-page">
+            <h1 className="settings-title">
                 SETTINGS
             </h1>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center', maxWidth: '600px', marginBottom: '64px' }}>
+            <div className="settings-categories">
                 {CATEGORIES.map((category) => (
                     <button
                         key={category}

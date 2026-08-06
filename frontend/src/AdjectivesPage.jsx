@@ -35,14 +35,12 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
   }, [input])
 
   const getFontSize = (word) => {
-    if (word.length <= 10) return '4vw'
-
-    const size = 40 / word.length
-
-    if (size >= 1)
-      return `${size}vw`
-    else
-      return '1vw'
+    const scale = window.innerWidth <= 480 ? 3 : 1
+    const threshold = 10
+    const baseline = 4 * scale
+    if (word.length <= threshold) return `${baseline}vw`
+    const size = (baseline * threshold) / word.length
+    return `${Math.max(scale, size)}vw`
   }
 
   const handleNext = () => {
@@ -99,7 +97,7 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
         </p>
       )}
 
-      <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
+      <div className="pixel-box">
         <input
           className="pixel-input"
           type="text"
@@ -107,7 +105,7 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter an adjective..."
         />
-        <div className="pixel-dropdown" style={{ position: 'absolute', top: '100%', zIndex: 10, width: '400px' }}>
+        <div className="pixel-dropdown" style={{ position: 'absolute', top: '100%', zIndex: 10 }}>
           {suggestions.map((suggestion) => (
             <div key={suggestion.word} className="pixel-dropdown-item" onClick={() => handleAddAdjective(suggestion.word)}>
               {suggestion.word}
@@ -115,41 +113,25 @@ function AdjectivesPage({ adjectives, setAdjectives }) {
           ))}
         </div>
       </div>
-
-      <div style={{ display: 'flex', gap: '4vw', justifyContent: 'center', position: 'fixed', bottom: '280px', left: 0, right: 0 }}>
+      <div className="neon-row">
         {[0, 1, 2].map((slot) => (
-          <div key={slot} style={{
+          <div key={slot} className="neon-slot" style={{
             color: neonTextColors[slot],
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
             textShadow: `0 0 5px ${neonTextColors[slot]}, 0 0 8px ${neonTextColors[slot]}`,
             border: `2px solid ${neonColors[slot]}`,
             boxShadow: `0 0 10px ${neonColors[slot]}, 0 0 20px ${neonColors[slot]}`,
-            borderRadius: '4px',
-            width: '25vw',
-            height: '15vw',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             fontSize: adjectives[slot] ? getFontSize(adjectives[slot]) : '4vw',
             fontFamily: 'Boxigen, sans-serif',
-            position: 'relative',
           }}>
+
             {adjectives[slot] ? (
               <>
                 <span className={flickeringOut[slot] ? 'neon-flicker-out' : flickering[slot] ? 'neon-flicker' : ''}>
                   {adjectives[slot]}
                   <button
+                    className="neon-x-btn"
                     onClick={() => handleRemoveAdjective(adjectives[slot])}
-                    style={{
-                      position: 'absolute',
-                      top: '0.5vw',
-                      right: '1.2vw',
-                      background: 'none',
-                      border: 'none',
-                      color: 'inherit',
-                      cursor: 'pointer',
-                      fontSize: '2vw',
-                    }}
                   >✕</button>
                 </span>
               </>

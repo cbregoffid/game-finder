@@ -94,25 +94,14 @@ function GamesPage({ games, setGames }) {
         </p>
       )}
 
-      <div style={{ display: 'flex', gap: '4vw', justifyContent: 'center', marginTop: '200px' }}>
+      <div className="game-row">
         {[0, 1, 2].map((slot) => (
           <div
             key={slot}
+            className="game-slot"
             onClick={() => setActiveSlot(slot)}
             onMouseEnter={() => setHoveredSlot(slot)}
-            onMouseLeave={() => setHoveredSlot(null)}
-            style={{
-              width: '20vw',
-              height: '27vw',
-              backgroundColor: 'rgba(0,0,0,0.6)',
-              border: '2px solid rgba(255,255,255,0.3)',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
-              cursor: 'pointer'
-            }}>
+            onMouseLeave={() => setHoveredSlot(null)}>
             {games[slot] ? (
               <>
                 <img src={games[slot].cover} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
