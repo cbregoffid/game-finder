@@ -63,7 +63,7 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, se
             </div>
           ))}
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px', maxWidth: '600px', margin: '0 auto' }}>
+          <div className="results-buttons">
             <button onClick={handleBack} className="pixel-btn-day">Back</button>
             <button onClick={handleReset} className="pixel-btn-day">Start Over</button>
           </div>

@@ -276,6 +276,14 @@
   cursor: pointer;
 }
 
+.results-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 @media (max-width: 480px) {
   .landing-title {
     font-size: 4.5rem;
@@ -339,6 +347,15 @@
   .game-slot {
     width: 45vw;
     height: 45vw;
+  }
+
+  .results-buttons {
+    padding: 2px;
+  }
+
+  .pixel-btn-day {
+    font-size: 12px;
+    padding: 12px 24px;
   }
 }
 
