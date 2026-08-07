@@ -26,13 +26,13 @@ def get_game_vector(game_name):
         model="text-embedding-3-small"
     )
     results = index.query(vector=response.data[0].embedding, top_k=1, filter={"name": game_name}, include_metadata=True, include_values=True)
-    return results.matches[0].values
+    return results.matches[0]
 
 def average_vectors(vectors):
     if not vectors:
         return None
     return np.mean(vectors, axis=0).tolist()
 
-def search(query_vector, top_k=10, platforms=None):
+def search(query_vector, top_k=30, platforms=None):
     results = index.query(vector=query_vector, top_k=top_k, include_metadata=True, filter={"platforms": {"$in": platforms}} if platforms else None)
     return results.matches

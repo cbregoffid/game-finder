@@ -9,6 +9,7 @@ import AdjectivesPage from './AdjectivesPage'
 import GamesPage from './GamesPage'
 import ResultsPage from './ResultsPage'
 import SettingsPage from './SettingsPage'
+import PlatformFilterPage from './PlatformFilterPage'
 
 function Background() {
   const location = useLocation()
@@ -60,7 +61,8 @@ function App() {
         <div style={{ position: 'relative', zIndex: 1 }}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/settings" element={<SettingsPage platforms={platforms} setPlatforms={setPlatforms} />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/settings/platforms" element={<PlatformFilterPage platforms={platforms} setPlatforms={setPlatforms} />} />
             <Route path="/adjectives" element={<AdjectivesPage adjectives={adjectives} setAdjectives={setAdjectives} />} />
             <Route path="/games" element={<GamesPage games={games} setGames={setGames} />} />
             <Route path="/results" element={<ResultsPage adjectives={adjectives} games={games} setAdjectives={setAdjectives} setGames={setGames} platforms={platforms} setPlatforms={setPlatforms} />} />

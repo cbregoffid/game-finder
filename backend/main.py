@@ -33,13 +33,15 @@ app.add_middleware(
 @app.post("/search")
 async def search(request: SearchRequest):
     all_vectors = []
+    reference_franchise_ids = []
     adjective_vector = embed_text(", ".join(request.adjectives))
     all_vectors.append(adjective_vector)
 
     for game in request.game_names:
-        game_vector = get_game_vector(game.strip())
-        if game_vector:
-            all_vectors.append(game_vector)
+        match = get_game_vector(game.strip())
+        if match:
+            all_vectors.append(match.values)
+            reference_franchise_ids.extend(match.metadata.get("franchise_ids", []))
 
     query_vector = average_vectors(all_vectors)
     results = search_games(query_vector, platforms=request.platforms)
@@ -51,10 +53,12 @@ async def search(request: SearchRequest):
                 "name": result.metadata["name"],
                 "summary": result.metadata["summary"],
                 "genres": result.metadata["genres"],
-                "themes": result.metadata["themes"]
+                "themes": result.metadata["themes"],
+                "franchise_ids": result.metadata.get("franchise_ids", [])
             })
 
-    return {"results": games}
+    return {"results": games,
+            "reference_franchise_ids": reference_franchise_ids}
 
 @app.get("/search-games")
 async def search_games_endpoint(query: str):
