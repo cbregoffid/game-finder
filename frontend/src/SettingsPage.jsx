@@ -12,9 +12,11 @@ function SettingsPage() {
             <button className="pixel-btn" onClick={() => navigate('/settings/platforms')}>
                 Platform Filter
             </button>
-            <button className="pixel-btn" style={{ marginTop: '500px' }} onClick={handleBack}>
-                Back
-            </button>
+            <div className="settings-back-row">
+                <button className="pixel-btn" onClick={handleBack}>
+                    Back
+                </button>
+            </div>
         </div>
     )
 }

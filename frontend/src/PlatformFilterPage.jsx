@@ -18,11 +18,7 @@ function PlatformFilterPage({ platforms, setPlatforms }) {
     }
 
     return (
-        <div className="settings-page">
-            <h1 className="settings-title">
-                PLATFORM FILTER
-            </h1>
-
+        <div className="platform-filter-page">
             <div className="platform-categories">
                 {CATEGORIES.map((category) => (
                     <button
@@ -33,7 +29,7 @@ function PlatformFilterPage({ platforms, setPlatforms }) {
                             borderColor: platforms.includes(category) ? '#00ff99' : undefined,
                             boxShadow: platforms.includes(category) ? '4px 4px 0px #00994d' : undefined,
                             fontSize: '12px',
-                            padding: '12px 20px'
+                            padding: '12px 20px',
                         }}
                     >
                         {category}
