@@ -75,24 +75,22 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, se
             </div>
           )}
 
-          {displayedResults.slice(0, visibleCount).map((result, index) => (
-            <div key={index} style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRadius: '8px',
-              padding: '24px',
-              animation: index < 10 ? `fadeInUp 0.5s ease forwards`: 'none',
-              animationDelay: index < 10 ? `${index * 0.15}s`: '0s',
-              opacity: index < 10 ? 0 : 1,
-              maxWidth: '600px',
-              margin: '16px auto 16px auto'
-            }}>
-              <h2 style={{ fontSize: '14px', color: 'white', fontFamily: "'Press Start 2P', cursive", marginBottom: '8px' }}>{result.name}</h2>
-              <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6' }}>{result.summary}</p>
-            </div>
-          ))}
 
-          { displayedResults.length > visibleCount && (
+          <div className="results-list">
+            {displayedResults.slice(0, visibleCount).map((result, index) => (
+              <div key={index} className="result-card" style={{
+                animation: index < 10 ? `fadeInUp 0.5s ease forwards` : 'none',
+                animationDelay: index < 10 ? `${index * 0.15}s` : '0s',
+                opacity: index < 10 ? 0 : 1,
+              }}>
+                <h2 style={{ fontSize: '14px', color: 'white', fontFamily: "'Press Start 2P', cursive", marginBottom: '8px' }}>{result.name}</h2>
+                <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6' }}>{result.summary}</p>
+              </div>
+            ))}
+
+          </div>
+
+          {displayedResults.length > visibleCount && (
             <div>
               <span className="load-more-text" onClick={() => setVisibleCount(visibleCount + 10)}>
                 Load More
@@ -100,7 +98,7 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, se
             </div>
           )}
 
-          { displayedResults.length <= visibleCount && (
+          {displayedResults.length <= visibleCount && (
             <div>
               <span className="show-less-text" onClick={() => setVisibleCount(10)}>
                 Show Less
