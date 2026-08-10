@@ -89,7 +89,7 @@ def fetch_games(access_token, offset=0):
         "Client-ID": CLIENT_ID,
         "Authorization": f"Bearer {access_token}"
     }
-    body = f'fields name, platforms.name, release_dates.platform.name, release_dates.date, franchises.id; where summary != null & rating >= 70 & rating_count > 20; limit 100; offset {offset}; sort rating_count desc;'
+    body = f'fields name, platforms.name, release_dates.platform.name, release_dates.date, franchises.id, collections.id; where summary != null & rating >= 70 & rating_count > 20; limit 100; offset {offset}; sort rating_count desc;'
     response = requests.post(url, headers=headers, data=body)
     return response.json()
 
@@ -122,6 +122,13 @@ def get_franchises_ids(game):
             franchises.append(str(franchise["id"]))
         
     return franchises
+
+def get_collection_ids(game):
+    collections = []
+    for collection in game.get("collections", []):
+        if str(collection["id"]) not in collections:
+            collections.append(str(collection["id"]))
+    return collections
             
 token = get_access_token()
 
@@ -134,8 +141,9 @@ for batch in range(50):
     for game in games:
         grouped = group_platforms(get_released_platforms(game))
         franchise_ids = get_franchises_ids(game)
-        index.update(id=str(game["id"]), set_metadata={"platforms": grouped, "franchise_ids": franchise_ids}) 
-        
+        collection_ids = get_collection_ids(game)
+        index.update(id=str(game["id"]), set_metadata={"platforms": grouped, "franchise_ids": franchise_ids, "collection_ids": collection_ids})
+            
     print(f"Updated {len(games)} games.")
 
 print("Done!")

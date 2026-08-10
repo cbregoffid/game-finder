@@ -6,6 +6,7 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, se
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
   const [referenceFranchiseIds, setReferenceFranchiseIds] = useState([])
+  const [referenceCollectionIds, setReferenceCollectionIds] = useState([])
   const [hideSequels, setHideSequels] = useState(false)
   const [showFilterMenu, setShowFilterMenu] = useState(false)
   const [visibleCount, setVisibleCount] = useState(10)
@@ -22,9 +23,11 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, se
     navigate('/games')
   }
 
-  const isSequel = (result) => {
-    return result.franchise_ids.some(id => referenceFranchiseIds.includes(id))
-  }
+const isSequel = (result) => {
+  const franchiseMatch = result.franchise_ids.some(id => referenceFranchiseIds.includes(id))
+  const collectionMatch = result.collection_ids.some(id => referenceCollectionIds.includes(id))
+  return franchiseMatch || collectionMatch
+}
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -42,6 +45,7 @@ function ResultsPage({ adjectives, games, setAdjectives, setGames, platforms, se
       setLoading(false)
       setResults(data.results)
       setReferenceFranchiseIds(data.reference_franchise_ids)
+      setReferenceCollectionIds(data.reference_collection_ids)
     }
     fetchResults()
   }, [])
