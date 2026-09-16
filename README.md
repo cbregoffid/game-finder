@@ -144,8 +144,9 @@ Game Finder uses OpenAI text embeddings and Pinecone vector search to recommend 
 ```sh
    cd scripts
    python embed_games.py
+   python patch_metadata.py
 ```
-   > This may take 10-30 minutes depending on how many games you choose to embed
+   > This may take 10-30 minutes depending on how many games you choose to embed. `patch_metadata.py` adds franchise data needed for sequel filtering.
 
 7. Install frontend dependencies
 ```sh
