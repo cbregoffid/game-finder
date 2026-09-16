@@ -162,7 +162,7 @@ Game Finder uses OpenAI text embeddings and Pinecone vector search to recommend 
 
 9. Start the frontend (in a new terminal)
 ```sh
-   cd frontend
+   cd ../frontend
    npm run dev
 ```
 
