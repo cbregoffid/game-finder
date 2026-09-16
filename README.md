@@ -108,12 +108,12 @@ Game Finder uses OpenAI text embeddings and Pinecone vector search to recommend 
    PINECONE_API_KEY=your_pinecone_api_key
 ```
 
+   > Get your Twitch credentials at [dev.twitch.tv](https://dev.twitch.tv), OpenAI key at [platform.openai.com](https://platform.openai.com), and Pinecone key at [pinecone.io](https://pinecone.io)
+
    Create a `.env.local` file in the `frontend` folder:
 ```sh
    VITE_API_URL=http://localhost:8000
 ```
-
-   > Get your Twitch credentials at [dev.twitch.tv](https://dev.twitch.tv), OpenAI key at [platform.openai.com](https://platform.openai.com), and Pinecone key at [pinecone.io](https://pinecone.io)
 
 3. Create and activate a Python virtual environment
 ```sh
