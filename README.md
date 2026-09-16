@@ -202,7 +202,7 @@ Game Finder uses OpenAI text embeddings and Pinecone vector search to recommend 
 - [ ] Weighted vector search for more accurate results
 - [ ] Sound effects on interactions
 - [ ] Cache frequent searches for faster load times
-- [ ] Image-based vibe search using game screenshots
+- [ ] Image-based search for a certain type of atmosphere/vibe using game screenshots
 - [ ] Additional theme options in Settings
 - [ ] VR platform filter option
 
