@@ -89,7 +89,7 @@ def fetch_games(access_token, offset=0):
         "Client-ID": CLIENT_ID,
         "Authorization": f"Bearer {access_token}"
     }
-    body = f'fields name, platforms.name, release_dates.platform.name, release_dates.date, franchises.id, collections.id; where summary != null & rating >= 70 & rating_count > 20; limit 100; offset {offset}; sort rating_count desc;'
+    body = f'fields name, platforms.name, release_dates.platform.name, release_dates.date, franchises.id, collections.id; where summary != null & rating >= 70 & rating_count > 20 & game_type = (0,4,8,9,10,11); limit 100; offset {offset}; sort rating_count desc;'
     response = requests.post(url, headers=headers, data=body)
     return response.json()
 
