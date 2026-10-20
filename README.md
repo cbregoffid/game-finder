@@ -63,7 +63,7 @@
 
 [![Game Finder Screenshot][product-screenshot]](https://game-finder-six.vercel.app)
 
-Game Finder uses OpenAI text embeddings and Pinecone vector search to recommend games based on semantic similarity rather than genre tags. Users enter mood adjectives and reference titles they enjoy, which are then converted into mathematical vectors and averaged into a single query point. Pinecone then searches a database of 2,000+ pre-embedded games to find the closest matches.
+Game Finder uses OpenAI text embeddings and Pinecone vector search to recommend games based on semantic similarity rather than genre tags. Users enter mood adjectives and reference titles they enjoy, which are then converted into mathematical vectors and averaged into a single query point. Pinecone then searches a database of 4,000+ pre-embedded games to find the closest matches.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
