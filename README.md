@@ -32,6 +32,9 @@
   </p>
 </div>
 
+>[!NOTE]
+>The live demo's backend runs on Render's free tier and goes to sleep when it isn't being used. The first game search may take up to a minute while it starts up. After that, it runs at normal speed.
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
