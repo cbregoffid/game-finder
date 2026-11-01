@@ -32,8 +32,8 @@
   </p>
 </div>
 
->[!NOTE]
->The live demo's backend runs on Render's free tier and goes to sleep when it isn't being used. The first game search may take up to a minute while it starts up. After that, it runs at normal speed.
+> [!NOTE]
+> The live demo's backend runs on Render's free tier and goes to sleep when it isn't being used. The first game search may take up to a minute while it starts up. After that, it runs at normal speed.
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -183,6 +183,7 @@ Game Finder uses OpenAI text embeddings and Pinecone vector search to recommend 
 2. On the adjectives page, enter at least one adjective in the search box that describes the atmosphere or vibe of the game you are looking for. For example, someone looking for a souls-like experience might enter *punishing*, *methodical*, and *intense*. Click the **✕** button on any chip to remove an adjective. Click **Next** when ready.
 
 3. On the games page, click any of the three boxes to open a search bar and enter a reference game title. You need at least one reference game to proceed. Click **Next** when ready.
+   > **Note:** If you're using the live demo, the first game search may take up to a minute while the backend starts up.
 
 4. Your results will appear on the final page. Scroll down and click **Load More** to see additional titles. Use the **Filter** button to exclude sequels or games related to your reference titles, or click **Start Over** to begin a new search.
 
